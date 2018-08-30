@@ -29,6 +29,7 @@ public class SpringBootDataModel implements Serializable {
 	@NotBlank
 	private String address;
 	
+	@NotBlank
 	private Integer age;
 	
 	@Column(nullable = false, updatable = false)
