@@ -3,23 +3,32 @@ package com.qa.springboot.dvd.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "user")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdDate, lastModified"}, allowGetters = true)
 public class UserModel implements Serializable{
+
+	public UserModel(@NotBlank String firstName, @NotBlank String lastName, Date doB, Date createDate, Date lastModified) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		DoB = doB;
+		this.createDate = createDate;
+		this.lastModified = lastModified;
+	}
+
+	public UserModel() {
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,9 +39,20 @@ public class UserModel implements Serializable{
 	
 	@NotBlank
 	private String lastName;
-	
-	@NotBlank
+
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat
 	private Date DoB;
+
+	@Column(updatable = false, nullable = false)
+	@Temporal(value = TemporalType.TIMESTAMP)
+	@CreatedDate
+	private Date createDate;
+
+	@Column(updatable = false, nullable = false)
+	@Temporal( value = TemporalType.TIMESTAMP)
+	@LastModifiedDate
+	private Date lastModified;
 
 	public Long getId() {
 		return id;
@@ -65,7 +85,20 @@ public class UserModel implements Serializable{
 	public void setDoB(Date doB) {
 		DoB = doB;
 	}
-	
 
-	
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Date getLastModified() {
+		return lastModified;
+	}
+
+	public void setLastModified(Date lastModified) {
+		this.lastModified = lastModified;
+	}
 }

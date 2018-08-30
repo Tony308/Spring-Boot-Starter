@@ -48,12 +48,10 @@ public class UserController {
 			@Valid @RequestBody UserModel userDetails
 			) {
 		UserModel MSDM = userRepo.findById(UserId).orElseThrow(() -> new ResourceNotFoundException("User", "id", UserId));
-		
 		MSDM.setFirstName(userDetails.getFirstName());
 		MSDM.setLastName(userDetails.getLastName());
 		MSDM.setDoB(userDetails.getDoB());
 		UserModel updatedData = userRepo.save(MSDM);
 		return updatedData;
-		
 	}
 }

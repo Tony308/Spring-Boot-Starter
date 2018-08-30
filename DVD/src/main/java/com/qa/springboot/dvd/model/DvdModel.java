@@ -3,7 +3,6 @@ package com.qa.springboot.dvd.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
@@ -14,11 +13,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "dvd")
@@ -26,28 +24,38 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(value = {"createdDate", "lastModified"}, allowGetters = true)
 public class DvdModel implements Serializable {
 
-	@Id
+    public DvdModel(@NotBlank String title, Boolean checkedOut, String reference, Date timeStamp) {
+        this.title = title;
+        CheckedOut = checkedOut;
+        this.reference = reference;
+        this.timeStamp = timeStamp;
+    }
+
+    public DvdModel() {
+    }
+
+    @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@NotBlank
-	private String name;
+	private String title;
+	
+	private Boolean CheckedOut;
 	
 	private String reference;
-	
-	@Column(nullable = false, updatable = false)
+
 	@Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat
 	private Date timeStamp;
 	
-	@Column(nullable = false, updatable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	@CreatedDate
-	private Date createdDate;
-	
-	@Column(nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	@LastModifiedDate
-	private Date lastModified;
+	public Boolean getCheckedOut() {
+		return CheckedOut;
+	}
+
+	public void setCheckedOut(Boolean checkedOut) {
+		CheckedOut = checkedOut;
+	}
 
 	public Long getId() {
 		return id;
@@ -56,29 +64,13 @@ public class DvdModel implements Serializable {
 	private void setId(Long id) {
 		this.id = id;
 	}
-
-	public String getName() {
-		return name;
+	
+	public String getTitle() {
+		return title;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	public Date getLastModified() {
-		return lastModified;
-	}
-
-	public void setLastModified(Date lastModified) {
-		this.lastModified = lastModified;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getReference() {
@@ -95,7 +87,7 @@ public class DvdModel implements Serializable {
 
 	public void setTimeStamp(Date timeStamp) {
 		this.timeStamp = timeStamp;
-	}	
-	
-	
+	}
+
+
 }
