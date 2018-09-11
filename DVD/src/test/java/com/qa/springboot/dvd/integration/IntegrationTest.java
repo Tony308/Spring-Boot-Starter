@@ -27,7 +27,6 @@ public class IntegrationTest {
     public void setup() {
         repository.deleteAll();
     }
-
     @Test
     public void retrieveDvdFromDatabase() throws Exception {
         repository.save(new DvdModel());
