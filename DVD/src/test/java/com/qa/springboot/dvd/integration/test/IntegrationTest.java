@@ -1,4 +1,4 @@
-package com.qa.springboot.dvd.integration;
+package com.qa.springboot.dvd.integration.test;
 
 import com.qa.springboot.dvd.DvdApplication;
 import com.qa.springboot.dvd.model.DvdModel;
@@ -28,8 +28,8 @@ public class IntegrationTest {
         repository.deleteAll();
     }
     @Test
-    public void retrieveDvdFromDatabase() throws Exception {
-        repository.save(new DvdModel());
+    public void retrieveDvdFromDatabase() {
+//        repository.save(new DvdModel());
 //        mvc.perform(get());
     }
 
