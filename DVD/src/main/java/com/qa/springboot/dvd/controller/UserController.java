@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.qa.springboot.dvd.exceptionHandler.ResourceNotFoundException;
+import com.qa.springboot.dvd.exception.handler.ResourceNotFoundException;
 import com.qa.springboot.dvd.model.UserModel;
 import com.qa.springboot.dvd.repository.UserRepository;
 
@@ -37,21 +37,20 @@ public class UserController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteUser(@PathVariable(value = "id") Long UserId) {
-		UserModel MSDM = userRepo.findById(UserId).orElseThrow(() -> new ResourceNotFoundException("User", "id", UserId));
-		userRepo.delete(MSDM);
+	public ResponseEntity<Object> deleteUser(@PathVariable(value = "id") Long userId) {
+		UserModel msdm = userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+		userRepo.delete(msdm);
 		return ResponseEntity.ok().build();
 	}
 	
 	@PutMapping("/{id}")
-	public UserModel updateUser(@PathVariable(value = "id" ) Long UserId,
+	public UserModel updateUser(@PathVariable(value = "id" ) Long userId,
 			@Valid @RequestBody UserModel userDetails
 			) {
-		UserModel MSDM = userRepo.findById(UserId).orElseThrow(() -> new ResourceNotFoundException("User", "id", UserId));
-		MSDM.setFirstName(userDetails.getFirstName());
-		MSDM.setLastName(userDetails.getLastName());
-		MSDM.setDoB(userDetails.getDoB());
-		UserModel updatedData = userRepo.save(MSDM);
-		return updatedData;
+		UserModel msdm = userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+		msdm.setFirstName(userDetails.getFirstName());
+		msdm.setLastName(userDetails.getLastName());
+		msdm.setDob(userDetails.getDob());
+		return userRepo.save(msdm);
 	}
 }

@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
@@ -33,7 +34,8 @@ public class UserRepositoryTest {
 
     @Before
     public void setup() {
-        userModel = new UserModel("test", "data", new Date(1996,9,4), new Date(), new Date());
+        Date dob = new Date(1996,9,4);
+        userModel = new UserModel("test", "data", dob, new Date(), new Date());
         testEntityManager.persist(userModel);
         testEntityManager.flush();
 
@@ -52,6 +54,6 @@ public class UserRepositoryTest {
     @Test
     @Ignore
     public void testDeleteUser() {
-//        assertEquals(false, userRepository.deleteById(userModel.getId()));
+        assertFalse(userRepository.deleteById(1));
     }
 }

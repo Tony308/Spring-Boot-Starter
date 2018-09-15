@@ -19,10 +19,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 @JsonIgnoreProperties(value = {"createdDate, lastModified"}, allowGetters = true)
 public class UserModel implements Serializable{
 
-	public UserModel(@NotBlank String firstName, @NotBlank String lastName, Date doB, Date createDate, Date lastModified) {
+	public UserModel(@NotBlank String firstName, @NotBlank String lastName, Date dob, Date createDate, Date lastModified) {
 		this.firstName = firstName;
 		this.lastName = lastName;
-		DoB = doB;
+		this.dob = dob;
 		this.createDate = createDate;
 		this.lastModified = lastModified;
 	}
@@ -42,7 +42,7 @@ public class UserModel implements Serializable{
 
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat
-	private Date DoB;
+	private Date dob;
 
 	@Column(updatable = false, nullable = false)
 	@Temporal(value = TemporalType.TIMESTAMP)
@@ -78,12 +78,12 @@ public class UserModel implements Serializable{
 		this.lastName = lastName;
 	}
 
-	public Date getDoB() {
-		return DoB;
+	public Date getDob() {
+		return dob;
 	}
 
-	public void setDoB(Date doB) {
-		DoB = doB;
+	public void setDob(Date dob) {
+		this.dob = dob;
 	}
 
 	public Date getCreateDate() {

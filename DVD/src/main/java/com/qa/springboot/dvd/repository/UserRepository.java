@@ -8,4 +8,6 @@ import com.qa.springboot.dvd.model.UserModel;
 @Repository
 public interface UserRepository extends JpaRepository<UserModel, Long> {
 
+    boolean deleteById(long id);
+
 }

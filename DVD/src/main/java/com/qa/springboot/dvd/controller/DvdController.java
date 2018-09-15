@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.qa.springboot.dvd.exceptionHandler.ResourceNotFoundException;
+import com.qa.springboot.dvd.exception.handler.ResourceNotFoundException;
 import com.qa.springboot.dvd.model.DvdModel;
 import com.qa.springboot.dvd.repository.DvdRepository;
 
@@ -34,8 +34,8 @@ public class DvdController {
 	}
 	
 	@GetMapping("/{id}")
-	public DvdModel getDvdById(@PathVariable(value = "id") Long DvdId) {
-		return myRepository.findById(DvdId).orElseThrow(()-> new ResourceNotFoundException("Dvd", "id", DvdId));
+	public DvdModel getDvdById(@PathVariable(value = "id") Long dvdId) {
+		return myRepository.findById(dvdId).orElseThrow(()-> new ResourceNotFoundException("Dvd", "id", dvdId));
 	}
 	
 	@PostMapping("/add")
@@ -44,51 +44,49 @@ public class DvdController {
 	}
 	
 	@PutMapping("/{id}")
-	public DvdModel updateDVD(@PathVariable(value = "id") Long DvdId,
-		@Valid @RequestBody DvdModel DvdDetails) {
-		DvdModel mSDM = myRepository.findById(DvdId).orElseThrow(() -> new ResourceNotFoundException("Dvd", "id", DvdId));
-		mSDM.setTitle(DvdDetails.getTitle());
-		DvdModel updateData = myRepository.save(mSDM);
-		return updateData;
+	public DvdModel updateDVD(@PathVariable(value = "id") Long dvdId,
+		@Valid @RequestBody DvdModel dvdDetails) {
+		DvdModel mSDM = myRepository.findById(dvdId).orElseThrow(() -> new ResourceNotFoundException("Dvd", "id", dvdId));
+		mSDM.setTitle(dvdDetails.getTitle());
+		return myRepository.save(mSDM);
 	}
 	
 	@PutMapping("/rent/{id}")
-	public DvdModel rentDVD(@PathVariable(value = "id") Long DvdId,
-        @Valid @RequestBody DvdModel DvdDetails) {
+	public DvdModel rentDVD(@PathVariable(value = "id") Long dvdId,
+        @Valid @RequestBody DvdModel dvdDetails) {
 
-		DvdModel MSDM = myRepository.findById(DvdId).orElseThrow(() -> new ResourceNotFoundException("Dvd", "id", DvdId));
+		DvdModel msdm = myRepository.findById(dvdId).orElseThrow(() -> new ResourceNotFoundException("Dvd", "id", dvdId));
 
 		Date currentDateTime = new Date();
 
-		MSDM.setCheckedOut(DvdDetails.getCheckedOut());
-		MSDM.setReference(DvdDetails.getReference());
-		MSDM.setTimeStamp(currentDateTime);
+		msdm.setCheckedout(dvdDetails.getCheckedout());
+		msdm.setReference(dvdDetails.getReference());
+		msdm.setTimeStamp(currentDateTime);
+		return myRepository.save(msdm);
 
-		DvdModel updateData = myRepository.save(MSDM);
-		return updateData;
 	}
 
 	@PutMapping("/return/{id}")
-    public DvdModel returnDVD(@PathVariable(value = "id") Long DvdId,
-            @Valid @RequestBody DvdModel DvdDetails){
+    public DvdModel returnDVD(@PathVariable(value = "id") Long dvdId,
+            @Valid @RequestBody DvdModel dvdDetails){
 
-	    DvdModel MSDM = myRepository.findById(DvdId).orElseThrow(() -> new ResourceNotFoundException("Dvd", "id", DvdId));
+	    DvdModel msdm = myRepository.findById(dvdId).orElseThrow(() -> new ResourceNotFoundException("Dvd", "id", dvdId));
 
-	    if (DvdDetails.getReference().equals(MSDM.getReference())) {
-	        MSDM.setReference(null);
+	    if (dvdDetails.getReference().equals(msdm.getReference())) {
+	        msdm.setReference(null);
         }
 
-	    MSDM.setCheckedOut(DvdDetails.getCheckedOut());
-        MSDM.setTimeStamp(null);
+	    msdm.setCheckedout(dvdDetails.getCheckedout());
+        msdm.setTimeStamp(null);
 
-        DvdModel updateData = myRepository.save(MSDM);
+        return myRepository.save(msdm);
 
-        return updateData;
+
     }
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deletePerson(@PathVariable(value = "id") Long DvdId) {
-		DvdModel mSDM = myRepository.findById(DvdId).orElseThrow(() -> new ResourceNotFoundException("Dvd", "id", DvdId));
+	public ResponseEntity<Object> deletePerson(@PathVariable(value = "id") Long dvdId) {
+		DvdModel mSDM = myRepository.findById(dvdId).orElseThrow(() -> new ResourceNotFoundException("Dvd", "id", dvdId));
 		
 		myRepository.delete(mSDM);
 		return ResponseEntity.ok().build();
