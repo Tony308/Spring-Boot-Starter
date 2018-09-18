@@ -1,10 +1,11 @@
-package com.qa.springboot.dvd.repository.test;
+package com.qa.springboot.dvd.test.repository;
 
-import com.qa.springboot.dvd.DvdApplication;
+import com.qa.springboot.dvd.UserModel;
 import com.qa.springboot.dvd.model.DvdModel;
 import com.qa.springboot.dvd.repository.DvdRepository;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import static org.junit.Assert.*;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {DvdApplication.class})
+@SpringBootTest(classes = {UserModel.class})
 @DataJpaTest
 public class DvdRepositoryTest {
 
@@ -45,12 +46,31 @@ public class DvdRepositoryTest {
     @Test
     public void getAllDvd() {
         assertEquals(1, dvdRepository.findAll().size());
+        dvdRepository.save(new DvdModel("Tremors",false,"CAN YOU FLY!?!?", new Date())
+        );
+        assertEquals(2, dvdRepository.findAll().size());
     }
 
     @Test
-    public void deleteDvd() {
+    public void testDeleteDvd() {
         dvdRepository.delete(model1);
         assertEquals(0, dvdRepository.findAll().size());
     }
 
+    @Test
+    public void testDeleteDvdById() {
+        dvdRepository.deleteById(model1.getId());
+        assertFalse(dvdRepository.findById(model1.getId()).isPresent());
+    }
+
+    @Test
+    @Ignore
+    public void testUpdateDvdById() {
+//        dvdRepository.updateById(model1.getId());
+        assertEquals("Avengers: Winter Soldier", dvdRepository.findById(model1.getId()));
+    }
+    @Test
+    public void testFindDvdByTitle() {
+        assertEquals(true, dvdRepository.findByTitle("Avengers 3").isPresent());
+    }
 }

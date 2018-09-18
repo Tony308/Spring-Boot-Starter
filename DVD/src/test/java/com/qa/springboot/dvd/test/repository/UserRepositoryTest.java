@@ -1,10 +1,8 @@
-package com.qa.springboot.dvd.repository.test;
+package com.qa.springboot.dvd.test.repository;
 
-import com.qa.springboot.dvd.DvdApplication;
-import com.qa.springboot.dvd.model.UserModel;
+import com.qa.springboot.dvd.UserModel;
 import com.qa.springboot.dvd.repository.UserRepository;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +18,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {DvdApplication.class})
+@SpringBootTest(classes = {UserModel.class})
 @DataJpaTest
 public class UserRepositoryTest {
 
@@ -38,22 +36,32 @@ public class UserRepositoryTest {
         userModel = new UserModel("test", "data", dob, new Date(), new Date());
         testEntityManager.persist(userModel);
         testEntityManager.flush();
-
     }
 
     @Test
     public void testGetAllUsers() {
         assertEquals(1, userRepository.findAll().size());
     }
-
-    @Test
-    public void testGetUserById() {
-        assertTrue(userRepository.findById(userModel.getId()).isPresent());
-    }
-
-    @Test
-    @Ignore
-    public void testDeleteUser() {
-        assertFalse(userRepository.deleteById(1));
-    }
+//
+//    @Test
+//    public void testGetUserById() {
+//        assertTrue(userRepository.findById(userModel.getId()).isPresent());
+//    }
+//
+//    @Test
+//    public void testDeleteUser() {
+//        userRepository.deleteById(userModel.getId());
+//        assertFalse(userRepository.findById(userModel.getId()).isPresent());
+//    }
+//
+//    @Test
+//    public void testDeleteAllUsers() {
+//        userRepository.deleteAll();
+//        assertEquals(0, userRepository.findAll().size());
+//    }
+//
+//    @Test
+//    public void findByName() {
+//        assertTrue(userRepository.findByName(userModel.getFirstName()).isPresent());
+//    }
 }

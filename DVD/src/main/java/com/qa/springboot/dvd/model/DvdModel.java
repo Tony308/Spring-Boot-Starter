@@ -24,9 +24,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 @JsonIgnoreProperties(value = {"createdDate", "lastModified"}, allowGetters = true)
 public class DvdModel implements Serializable {
 
-    public DvdModel(@NotBlank String title, Boolean checkedout, String reference, Date timeStamp) {
+    public DvdModel(@NotBlank String title, Boolean checkedOut, String reference, Date timeStamp) {
         this.title = title;
-        this.checkedout = checkedout;
+        this.checkedOut = checkedOut;
         this.reference = reference;
         this.timeStamp = timeStamp;
     }
@@ -41,7 +41,7 @@ public class DvdModel implements Serializable {
 	@NotBlank
 	private String title;
 	
-	private Boolean checkedout;
+	private Boolean checkedOut;
 	
 	private String reference;
 
@@ -49,12 +49,12 @@ public class DvdModel implements Serializable {
     @DateTimeFormat
 	private Date timeStamp;
 	
-	public Boolean getCheckedout() {
-		return checkedout;
+	public Boolean getCheckedOut() {
+		return checkedOut;
 	}
 
-	public void setCheckedout(Boolean checkedout) {
-		this.checkedout = checkedout;
+	public void setCheckedOut(Boolean checkedOut) {
+		this.checkedOut = checkedOut;
 	}
 
 	public Long getId() {

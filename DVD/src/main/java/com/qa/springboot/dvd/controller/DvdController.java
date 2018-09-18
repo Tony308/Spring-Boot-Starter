@@ -55,11 +55,11 @@ public class DvdController {
 	public DvdModel rentDVD(@PathVariable(value = "id") Long dvdId,
         @Valid @RequestBody DvdModel dvdDetails) {
 
-		DvdModel msdm = myRepository.findById(dvdId).orElseThrow(() -> new ResourceNotFoundException("Dvd", "id", dvdId));
+        DvdModel msdm = myRepository.findById(dvdId).orElseThrow(() -> new ResourceNotFoundException("Dvd", "id", dvdId));
 
 		Date currentDateTime = new Date();
 
-		msdm.setCheckedout(dvdDetails.getCheckedout());
+		msdm.setCheckedOut(dvdDetails.getCheckedOut());
 		msdm.setReference(dvdDetails.getReference());
 		msdm.setTimeStamp(currentDateTime);
 		return myRepository.save(msdm);
@@ -76,7 +76,7 @@ public class DvdController {
 	        msdm.setReference(null);
         }
 
-	    msdm.setCheckedout(dvdDetails.getCheckedout());
+	    msdm.setCheckedOut(dvdDetails.getCheckedOut());
         msdm.setTimeStamp(null);
 
         return myRepository.save(msdm);
