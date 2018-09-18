@@ -1,7 +1,7 @@
 package com.qa.springboot.dvd.test.repository;
 
-import com.qa.springboot.dvd.UserModel;
 import com.qa.springboot.dvd.model.DvdModel;
+import com.qa.springboot.dvd.model.UserModel;
 import com.qa.springboot.dvd.repository.DvdRepository;
 
 import org.junit.Before;

@@ -8,9 +8,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @EnableJpaAuditing
 @EnableJpaRepositories
-public class UserModel {
+public class DvdApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(UserModel.class, args);
+		SpringApplication.run(DvdApplication.class, args);
 	}
 }

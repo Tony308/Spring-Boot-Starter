@@ -1,7 +1,6 @@
 package com.qa.springboot.dvd.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.qa.springboot.dvd.UserModel;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 

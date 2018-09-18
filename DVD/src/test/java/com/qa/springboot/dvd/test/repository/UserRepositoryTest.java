@@ -1,6 +1,6 @@
 package com.qa.springboot.dvd.test.repository;
 
-import com.qa.springboot.dvd.UserModel;
+import com.qa.springboot.dvd.model.UserModel;
 import com.qa.springboot.dvd.repository.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,7 +42,7 @@ public class UserRepositoryTest {
     public void testGetAllUsers() {
         assertEquals(1, userRepository.findAll().size());
     }
-//
+
 //    @Test
 //    public void testGetUserById() {
 //        assertTrue(userRepository.findById(userModel.getId()).isPresent());

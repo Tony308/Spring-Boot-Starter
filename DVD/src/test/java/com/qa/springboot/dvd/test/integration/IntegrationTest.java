@@ -1,6 +1,6 @@
 package com.qa.springboot.dvd.test.integration;
 
-import com.qa.springboot.dvd.UserModel;
+import com.qa.springboot.dvd.DvdApplication;
 import com.qa.springboot.dvd.model.DvdModel;
 import com.qa.springboot.dvd.repository.DvdRepository;
 import org.junit.Before;
@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {UserModel.class})
+@SpringBootTest(classes = {DvdApplication.class})
 @AutoConfigureMockMvc
 public class IntegrationTest {
 
